@@ -1,0 +1,62 @@
+units		real
+atom_style	full
+neighbor	2.0 bin
+neigh_modify	every 10 delay 0 check no
+
+read_data	model.data  
+
+# Force-field settings
+pair_style	reaxff NULL safezone 4.8 mincap 400 minhbonds 200
+pair_coeff	* * ../Reaction_Force_Field_File/reaxff_MgCHONSF.ffield H H H H H C N O F H H Mg H H H S Mg
+
+# Define the bottom and top regions 
+region bot block INF INF INF INF INF -79.6 units box  #0.5nm
+region top block INF INF INF INF 85 INF units box  #1.5nm
+group fbot region bot
+group ftop region top
+group other subtract all fbot ftop
+
+# Output settings
+thermo_style custom step temp press density vol etotal ke pe dt spcpu cpu cpuremain
+thermo_modify flush yes
+
+# Fix the bottom atoms to prevent them from moving during deposition
+fix s1 ftop setforce 0.0 0.0 0.0 
+fix s2 fbot setforce 0.0 0.0 0.0 
+fix    1 all qeq/reax 1 0.0 10.0 1e-6 reaxff
+
+
+# Energy minimization
+thermo 1000
+
+# Initialize atomic velocities
+velocity other create 300.0 4928459 rot yes dist gaussian
+
+
+#------------------------------Equilibration stage------------------------------
+# Output
+dump 1 all custom 5000 dump_equil.lammpstrj id mol type q x y z element
+dump_modify 1 element H H H H H C N O F H H Mg H H H S Mg
+# Time step
+thermo 1000
+timestep	0.1
+minimize    1e-8 1e-8 10000 10000
+
+fix   up_T all nvt temp 300.0 300.0 20.0
+run  5000    
+unfix up_T
+
+#------------------------------Production run------------------------------
+# Time step
+thermo 1000
+timestep	0.2
+fix  produ all nvt temp 300.0 300.0 20.0
+
+restart 20000 restart.equil
+run 5000000  #1ns
+#run 200
+write_data equil.data
+
+
+
+
