@@ -10,8 +10,8 @@ pair_style	reaxff NULL safezone 4.8 mincap 400 minhbonds 200
 pair_coeff	* * ../Reaction_Force_Field_File/reaxff_MgCHONSF.ffield H H H H H C N O F H H Mg H H H S Mg
 
 # Define the bottom and top regions 
-region bot block INF INF INF INF INF -79.6 units box  #0.5nm
-region top block INF INF INF INF 85 INF units box  #1.5nm
+region bot block INF INF INF INF INF -96 units box  #0.5nm
+region top block INF INF INF INF 136 INF units box  #1.5nm
 group fbot region bot
 group ftop region top
 group other subtract all fbot ftop
@@ -56,7 +56,5 @@ restart 20000 restart.equil
 run 5000000  #1ns
 #run 200
 write_data equil.data
-
-
 
 

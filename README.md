@@ -1,10 +1,10 @@
 # ReaxFF Molecular Dynamics Model for Mg Metal/PrIm Electrolyte Interface
 
-This repository provides the ReaxFF molecular dynamics input files, a representative initial structural model, and the complete ReaxFF force-field file to facilitate reproducibility of the simulation methodology described in the manuscript:
+This repository provides the ReaxFF molecular dynamics input files, a full-size initial structural model, and the complete ReaxFF force-field file to facilitate reproducibility of the simulation methodology described in the manuscript:
 
 **“ReaxFF-Enabled Atomistic Insights into Electrode/Electrolyte Interphase Evolution on Magnesium Metal Anodes”**
 
-The deposited files provide an accessible example of the simulation setup and workflow used for the Mg metal/electrolyte interface.
+The deposited files provide the simulation setup and workflow for the full-size Mg metal/PrIm electrolyte interfacial model used in the manuscript.
 
 ## 1. Repository contents
 
@@ -24,7 +24,7 @@ Mg_ReaxFF_simulations/
   LAMMPS input script for the ReaxFF molecular dynamics simulation.
 
 - `model.data`  
-  Representative initial structural model containing the Mg metal slab and electrolyte region. The model is derived from the simulation configuration used in the study, with slightly reduced Mg slab and electrolyte thicknesses to facilitate reproduction of the simulation setup.
+  Full-size initial structural model containing the Mg metal slab and electrolyte region, with dimensions corresponding to the production model used in the manuscript.
 
 ### `Reaction_Force_Field_File/`
 
@@ -35,17 +35,15 @@ Mg_ReaxFF_simulations/
 
 The deposited model describes the **0.3 M Mg(TFSI)₂ in PrIm** electrolyte in contact with a Mg metal electrode at 300 K.
 
-The Mg metal electrode is represented by a Mg(0001) slab with an approximately **85 Å thickness**, while the electrolyte region is approximately **100 Å thick**. The lateral dimensions of the simulation cell are approximately **35 Å × 39 Å**.
-
-The deposited model is based on the same simulation configuration used in the study, with the Mg slab and electrolyte region slightly reduced in thickness for computational convenience. The full-size production models used in the manuscript contain an approximately **100 Å Mg slab and 150 Å electrolyte region**.
+The deposited model is a full-size production model used in the manuscript. It contains a Mg(0001) slab approximately **100 Å thick** and an electrolyte region approximately **150 Å thick**. The lateral dimensions of the simulation cell are approximately **35 Å × 39 Å**.
 
 The electrolyte composition and model construction procedure are described in detail in the Supplementary Information.
 
 ## 3. Boundary conditions and simulation protocol
 
-Periodic boundary conditions were applied in the all three directions. The simulation was performed using the ReaxFF reactive force field implemented in LAMMPS.
+Periodic boundary conditions were applied in all three directions. The simulation was performed using the ReaxFF reactive force field implemented in LAMMPS.
 
-The representative simulation was conducted at **300 K**.
+The simulation was conducted at **300 K**.
 
 The ReaxFF simulations described in the manuscript were used to investigate interfacial processes including:
 
@@ -58,11 +56,11 @@ The ReaxFF simulations described in the manuscript were used to investigate inte
 
 Further methodological details are provided in the main manuscript and Supplementary Information.
 
-## 4. Reproducing the representative simulation
+## 4. Reproducing the full-size simulation
 
 A compatible version of LAMMPS with ReaxFF support is required.
 
-The representative simulation can be initiated using the provided input script:
+The full-size simulation can be initiated using the provided input script:
 
 ```bash
 lmp -in in.lmp
@@ -81,7 +79,7 @@ Before running the calculation, please ensure that:
 
 The production trajectories generated from the full-size simulation models are substantially larger than the input files and force-field parameters and are therefore not included directly in this GitHub repository.
 
-Instead, the repository provides the LAMMPS input script, the representative initial structural model, and the complete ReaxFF force-field parameter file. These files allow the simulation setup and force-field implementation to be inspected and a representative calculation to be reproduced without requiring the large production trajectory files.
+Instead, the repository provides the LAMMPS input script, the full-size initial structural model, and the complete ReaxFF force-field parameter file. These files allow the full-size simulation setup and force-field implementation to be inspected and the calculation to be reproduced.
 
 Trajectory-derived results and analyses relevant to the manuscript are provided in the Supplementary Information.
 
@@ -89,4 +87,4 @@ Trajectory-derived results and analyses relevant to the manuscript are provided 
 
 The files in this repository are provided as a reproducibility package for the ReaxFF simulation methodology described in the manuscript.
 
-In particular, the deposited `in.lmp`, `model.data`, and `reaxff_MgCHONSF.ffield` files provide the LAMMPS input, a representative starting configuration, and the force-field parameters needed to inspect and reproduce the representative simulation setup.
+In particular, the deposited `in.lmp`, `model.data`, and `reaxff_MgCHONSF.ffield` files provide the LAMMPS input, the full-size starting configuration, and the force-field parameters needed to inspect and reproduce the full-size simulation setup.
